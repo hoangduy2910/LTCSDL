@@ -29,5 +29,13 @@ namespace LTCSDL.Web.Controllers
             res.Data = _svc.GetDSDonHangNhanVienTrongKhoangThoiGianTheoKeyword(req.size, req.page, req.keyword, req.dateF, req.dateT);
             return Ok(res);
         }
+
+        [HttpPost("get-doanh-thu-theo-quoc-gia")]
+        public IActionResult GetDoanhThuTheoQuocGia([FromBody] DoanhThu req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetDoanhThuTheoQuocGia(req.month, req.year);
+            return Ok(res);
+        }
     }
 }

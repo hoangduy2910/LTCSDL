@@ -11,47 +11,43 @@ namespace LTCSDL.DAL
     using LTCSDL.Common.DAL;
     using LTCSDL.Common.BLL;
     using Microsoft.EntityFrameworkCore.Internal;
-
-    public class ProductsRep : GenericRep<NorthwindContext, Products>
+    public class ShippersRep : GenericRep<NorthwindContext, Shippers>
     {
-        public object GetDSMatHangBanChayNhat(int size, int page, int month, int year)
+        public Shippers ThemMoiShipper(Shippers ship)
         {
-            List<object> res = new List<object>();
+            Shippers x = new Shippers();
             var cnn = (SqlConnection)Context.Database.GetDbConnection();
             if (cnn.State == ConnectionState.Closed)
                 cnn.Open();
             try
             {
+                string sql = "insert into [dbo].[Shippers] ([CompanyName], [Phone]) values ('" + ship.CompanyName + "', '" + ship.Phone + "')";
+                sql = sql + "select * from [dbo].[Shippers] where ShipperID = @@identity";
                 SqlDataAdapter da = new SqlDataAdapter();
                 DataSet ds = new DataSet();
                 var cmd = cnn.CreateCommand();
-                cmd.CommandText = "DSMatHangBanChayNhat";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@size", size);
-                cmd.Parameters.AddWithValue("@page", page);
-                cmd.Parameters.AddWithValue("@month", month);
-                cmd.Parameters.AddWithValue("@year", year);
+                cmd.CommandText = sql;
+                cmd.CommandType = CommandType.Text;
                 da.SelectCommand = cmd;
                 da.Fill(ds);
                 if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        var x = new
+                        x = new Shippers
                         {
-                            STT = row["STT"],
-                            ProductName = row["ProductName"],
-                            DoanhThu = row["DoanhThu"]
+                            ShipperId = Int32.Parse(row["ShipperID"].ToString()),
+                            CompanyName = row["CompanyName"].ToString(),
+                            Phone = row["[Phone]"].ToString()
                         };
-                        res.Add(x);
                     }
                 }
             }
             catch (Exception e)
             {
-                res = null;
+                x = null;
             }
-            return res;
+            return x;
         }
     }
 }

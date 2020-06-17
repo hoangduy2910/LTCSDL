@@ -12,5 +12,10 @@ namespace LTCSDL.BLL
         {
             return _rep.GetDSDonHangNhanVienTrongKhoangThoiGianTheoKeyword(size, page, keyword, dateF, dateT);
         }
+
+        public object GetDoanhThuTheoQuocGia(int month, int year)
+        {
+            return _rep.GetDoanhThuTheoQuocGia(month, year);
+        }
     }
 }

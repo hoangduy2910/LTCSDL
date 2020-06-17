@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-6" style="padding: 20px;">
+        <h2 style="color: DodgerBlue;">Doanh thu theo quốc gia</h2>
+        <div>
+            <div class="row mt-4">
+                <div class="col-1 mt-2 mr-2">Tháng</div> 
+                <div class="col-3">
+                    <input class="form-control" type="number" min="1" max="12" [(ngModel)]="month" />
+                </div> 
+                <div class="col-1 mt-2">Năm</div> 
+                <div class="col-3">
+                    <input class="form-control" type="number" min="1" [(ngModel)]="year" />
+                </div> 
+                <div class="col-3">
+                    <button class="btn btn-primary" (click)="doanhThuTheoQuocGia()">Doanh thu</button>
+                </div> 
+            </div>
+            <div class="row mt-3">
+                <table class="table">
+                    <thead>
+                        <th>Quốc gia</th>
+                        <th>Doanh thu</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of listDoanhThu">
+                            <td>{{ i.shipCountry }}</td>
+                            <td>{{ i.doanhThu }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div id="piechart" style="width: 900px; height: 500px;"></div>
+    </div>
+</div>

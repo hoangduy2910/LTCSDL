@@ -64,5 +64,42 @@ namespace LTCSDL.DAL
             }
             return res;
         }
+
+        public object GetDoanhThuTheoQuocGia(int month, int year)
+        {
+            List<object> res = new List<object>();
+            var cnn = (SqlConnection)Context.Database.GetDbConnection();
+            if (cnn.State == ConnectionState.Closed)
+                cnn.Open();
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter();
+                DataSet ds = new DataSet();
+                var cmd = cnn.CreateCommand();
+                cmd.CommandText = "DoanhThuTheoQuocGia";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        var x = new
+                        {
+                            ShipCountry = row["ShipCountry"],
+                            DoanhThu = row["DoanhThu"]
+                        };
+                        res.Add(x);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                res = null;
+            }
+            return res;
+        }
     }
 }
