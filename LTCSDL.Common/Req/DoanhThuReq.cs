@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LTCSDL.Common.Req
 {
-    public class DoanhThu
+    public class DoanhThuReq
     {
         public int month { get; set; }
         public int year { get; set; }

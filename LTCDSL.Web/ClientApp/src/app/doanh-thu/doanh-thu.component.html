@@ -1,4 +1,74 @@
 <div class="row">
+    <h2 style="color: DodgerBlue;">Doanh thu nhân viên trong ngày</h2>
+    <div class="col-12">
+        <div class="row mt-4">
+            <div class="col-2 mt-2">Ngày/Tháng/Năm</div> 
+            <div class="col-5">
+                <input class="form-control" type="date" [(ngModel)]="dateBegin" />
+            </div> 
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="doanhThuNhanVienTrongNgay()">Doanh thu</button>
+            </div> 
+        </div>
+        <div class="row mt-3">
+            <table class="table">
+                <thead>
+                    <th>EmployeeID</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Doanh thu</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of listDoanhThuNVTrongNgay">
+                        <td>{{ i.employeeID }}</td>
+                        <td>{{ i.firstName }}</td>
+                        <td>{{ i.lastName }}</td>
+                        <td>{{ i.doanhThu }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h2 style="color: DodgerBlue;">Doanh thu nhân viên trong khoảng thời gian</h2>
+    <div class="col-12">
+        <div class="row mt-4">
+            <div class="col-1 mt-2">Bắt đầu</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateBegin" />
+            </div> 
+            <div class="col-1 mt-2">Kết thúc</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateEnd" />
+            </div> 
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="doanhThuNhanVienTrongKhoangThoiGian()">Doanh thu</button>
+            </div> 
+        </div>
+        <div class="row mt-3">
+            <table class="table">
+                <thead>
+                    <th>EmployeeID</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Doanh thu</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of listDoanhThuNVTrongKhoangThoiGian">
+                        <td>{{ i.employeeID }}</td>
+                        <td>{{ i.firstName }}</td>
+                        <td>{{ i.lastName }}</td>
+                        <td>{{ i.doanhThu }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-6" style="padding: 20px;">
         <h2 style="color: DodgerBlue;">Doanh thu theo quốc gia</h2>
         <div>
@@ -22,7 +92,7 @@
                         <th>Doanh thu</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let i of listDoanhThu">
+                        <tr *ngFor="let i of listDoanhThuQuocGia">
                             <td>{{ i.shipCountry }}</td>
                             <td>{{ i.doanhThu }}</td>
                         </tr>
@@ -32,6 +102,6 @@
         </div>
     </div>
     <div class="col-6">
-        <div id="piechart" style="width: 900px; height: 500px;"></div>
+        <div id="piechart" style="width: 500px; height: 500px;"></div>
     </div>
 </div>

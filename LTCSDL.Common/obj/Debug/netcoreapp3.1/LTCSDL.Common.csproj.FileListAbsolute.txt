@@ -14,4 +14,3 @@ C:\Users\TiDK\Desktop\LTCSDL\LTCSDL.Common\obj\Debug\netcoreapp3.1\LTCSDL.Common
 C:\Users\TiDK\Desktop\LTCSDL\LTCSDL.Common\obj\Debug\netcoreapp3.1\LTCSDL.Common.AssemblyInfo.cs
 C:\Users\TiDK\Desktop\LTCSDL\LTCSDL.Common\obj\Debug\netcoreapp3.1\LTCSDL.Common.dll
 C:\Users\TiDK\Desktop\LTCSDL\LTCSDL.Common\obj\Debug\netcoreapp3.1\LTCSDL.Common.pdb
-C:\Users\TiDK\Desktop\LTCSDL\LTCSDL.Common\obj\Debug\netcoreapp3.1\LTCSDL.Common.csprojAssemblyReference.cache

@@ -31,7 +31,7 @@ namespace LTCSDL.Web.Controllers
         }
 
         [HttpPost("get-doanh-thu-theo-quoc-gia")]
-        public IActionResult GetDoanhThuTheoQuocGia([FromBody] DoanhThu req)
+        public IActionResult GetDoanhThuTheoQuocGia([FromBody] DoanhThuReq req)
         {
             var res = new SingleRsp();
             res.Data = _svc.GetDoanhThuTheoQuocGia(req.month, req.year);
