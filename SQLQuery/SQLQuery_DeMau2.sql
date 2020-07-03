@@ -1,5 +1,5 @@
 /* Cau 1 */
-alter proc DanhSachDonHangTrongKhoangThoiGian 
+create proc DanhSachDonHangTrongKhoangThoiGian 
 	@dateF datetime, 
 	@dateT datetime,
 	@size int,

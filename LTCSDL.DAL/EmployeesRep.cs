@@ -93,8 +93,7 @@ namespace LTCSDL.DAL
         }
 
         public object GetDoanhThuNhanVienTrongNgay_LinQ(DateTime date)
-        {   
-            /*
+        {
             var res = All.Join(this.Context.Orders, a => a.EmployeeId, b => b.EmployeeId, (a, b) => new
             {
                 a.EmployeeId,
@@ -108,12 +107,19 @@ namespace LTCSDL.DAL
                 a.FirstName,
                 a.LastName,
                 a.OrderDate,
-                DoanhThu = (Convert.ToDouble(c.Quantity) * Convert.ToDouble(c.UnitPrice) * (1 - Convert.ToDouble(c.Discount))).ToString()
+                DoanhThu = c.Quantity * Convert.ToDouble(c.UnitPrice) * (1 - Convert.ToDouble(c.Discount))
             }).Where(emp => emp.OrderDate.Value.Day == date.Day && emp.OrderDate.Value.Month == date.Month &&
                             emp.OrderDate.Value.Year == date.Year)
-            .GroupBy(emp => new { emp.EmployeeId, emp.FirstName, emp.LastName, emp.DoanhThu });
-            */
+            .GroupBy(emp => new { emp.EmployeeId, emp.FirstName, emp.LastName })
+            .Select(group => new {
+                group.Key.EmployeeId,
+                group.Key.FirstName,
+                group.Key.LastName,
+                DoanhThu = Math.Round(group.Sum(emp => emp.DoanhThu), 2) 
+            });
+            return res;
 
+            /*
             var db = Context;
             var res = from e in db.Employees join o in db.Orders on e.EmployeeId equals o.EmployeeId
                         join od in db.OrderDetails on o.OrderId equals od.OrderId
@@ -128,10 +134,36 @@ namespace LTCSDL.DAL
                       };
 
             return res;
+            */
         }
 
         public object GetDoanhThuNhanVienTrongKhoangThoiGian_LinQ(DateTime dateBegin, DateTime dateEnd)
         {
+            var res = All.Join(this.Context.Orders, a => a.EmployeeId, b => b.EmployeeId, (a, b) => new
+            {
+                a.EmployeeId,
+                a.FirstName,
+                a.LastName,
+                b.OrderId,
+                b.OrderDate
+            }).Join(this.Context.OrderDetails, a => a.OrderId, c => c.OrderId, (a, c) => new
+            {
+                a.EmployeeId,
+                a.FirstName,
+                a.LastName,
+                a.OrderDate,
+                DoanhThu = c.Quantity * Convert.ToDouble(c.UnitPrice) * (1 - c.Discount)
+            }).Where(emp => emp.OrderDate >= dateBegin && emp.OrderDate <= dateEnd)
+            .GroupBy(emp => new { emp.EmployeeId, emp.FirstName, emp.LastName })
+            .Select(group => new {
+                group.Key.EmployeeId,
+                group.Key.FirstName,
+                group.Key.LastName,
+                DoanhThu = Math.Round(group.Sum(emp => emp.DoanhThu), 2)
+            });
+            return res;
+
+            /*
             var db = Context;
             var res = from e in db.Employees
                       join o in db.Orders on e.EmployeeId equals o.EmployeeId
@@ -147,6 +179,7 @@ namespace LTCSDL.DAL
                       };
 
             return res;
+            */
         }
     }
 }

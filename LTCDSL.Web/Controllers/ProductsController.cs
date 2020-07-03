@@ -37,5 +37,13 @@ namespace LTCSDL.Web.Controllers
             res.Data = _svc.GetDSMatHangBanChayNhat(req.size, req.page, req.month, req.year);
             return Ok(res);
         }
+
+        [HttpPost("get-ds-mat-hang-ban-chay-nhat-linq")]
+        public IActionResult GetDSMatHangBanChayNhat_LinQ([FromBody] ProductsReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetDSMatHangBanChayNhat_LinQ(req.size, req.page, req.month, req.year);
+            return Ok(res);
+        }
     }
 }

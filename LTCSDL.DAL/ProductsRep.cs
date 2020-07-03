@@ -53,5 +53,46 @@ namespace LTCSDL.DAL
             }
             return res;
         }
+
+        public object GetDSMatHangBanChayNhat_LinQ(int size, int page, int month, int year)
+        {
+            var ds = All.Join(this.Context.OrderDetails, a => a.ProductId, c => c.ProductId, (a, c) => new
+            {
+                a.ProductId,
+                c.OrderId,
+                c.Quantity,
+                c.UnitPrice,
+                c.Discount
+            }).Join(this.Context.Orders, a => a.OrderId, b => b.OrderId, (a, b) => new
+            {
+                a.ProductId,
+                a.OrderId,
+                a.Quantity,
+                a.UnitPrice,
+                a.Discount,
+                b.OrderDate,
+                b.ShipCountry,
+                DoanhThu = a.Quantity * Convert.ToDouble(a.UnitPrice) * (1 - Convert.ToDouble(a.Discount))
+            }).Where(emp => emp.OrderDate.Value.Month == month && emp.OrderDate.Value.Year == year)
+            .GroupBy(emp => new { emp.ShipCountry })
+            .Select(group => new {
+                group.Key.ShipCountry,
+                DoanhThu = Math.Round(group.Sum(emp => emp.DoanhThu), 2)
+            });
+
+            var offset = (page - 1) * size;
+            var totalRecord = ds.Count();
+            var totalPage = (totalRecord % size) == 0 ? (int)(totalRecord / size) : (int)((totalRecord / size) + 1);
+            var data = ds.Skip(offset).Take(size).ToList();
+
+            return new
+            {
+                Data = data,
+                totalRecord = totalRecord,
+                totalPage = totalPage,
+                page = page,
+                size = size
+            };
+        }
     }
 }

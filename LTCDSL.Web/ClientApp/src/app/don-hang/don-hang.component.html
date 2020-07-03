@@ -1,0 +1,102 @@
+<div class="row">
+    <h2 style="color: DodgerBlue;">Danh sách đơn hàng trong khoảng thời gian</h2>
+    <div class="col-12">
+        <div class="row mt-4">
+            <div class="col-1 mt-2">Từ ngày</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateFrom" />
+            </div> 
+            <div class="col-1 mt-2">Đến ngày</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateTo" />
+            </div> 
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="dachSachDonHangTrongKhoangThoiGian(1)">Danh sách</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <table class="table">
+                <thead>
+                    <th>OrderID</th>    
+                    <th>CustomerID</th>
+                    <th>EmployeeID</th>
+                    <th>OrderDate</th>               
+                    <th>RequiredDate</th>            
+                    <th>ShippedDate</th>             
+                    <th>ShipVia</th>    
+                    <th>Freight</th>               
+                    <th>ShipName</th>                                 
+                    <th>ShipAddress</th>                                                  
+                    <th>ShipCity</th>        
+                    <th>ShipRegion</th>      
+                    <th>ShipPostalCode</th> 
+                    <th>ShipCountry</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of listDSDH.data">
+                        <td>{{ i.orderId }}</td>
+                        <td>{{ i.customerId }}</td>
+                        <td>{{ i.employeeId }}</td>
+                        <td>{{ i.orderDate }}</td>
+                        <td>{{ i.requiredDate }}</td>            
+                        <td>{{ i.shippedDate }}</td>             
+                        <td>{{ i.shipVia }}</td>    
+                        <td>{{ i.freight }}</td>               
+                        <td>{{ i.shipName }}</td>                                 
+                        <td>{{ i.shipAddress }}</td>                                                  
+                        <td>{{ i.shipCity }}</td>        
+                        <td>{{ i.shipRegion }}</td>      
+                        <td>{{ i.shipPostalCode }}</td> 
+                        <td>{{ i.shipCountry }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination-bar" style="margin: 0 auto;">
+        <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="dachSachDonHangTrongKhoangThoiGianTruoc()">Trước</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)">{{ listDSDH.page }}</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0)" (click)="dachSachDonHangTrongKhoangThoiGianSau()">Sau</a></li>
+        </ul>
+        </nav>
+    </div>
+    <!-- End Pagination -->
+</div>
+
+<div class="row">
+    <h2 style="color: DodgerBlue;">Danh sách đơn hàng trong khoảng thời gian</h2>
+    <div class="col-12">
+        <div class="row mt-4">
+            <div class="col-1 mt-2">Mã đơn hàng</div> 
+            <div class="col-3">
+                <input class="form-control" type="number" min="1" [(ngModel)]="maDH" />
+            </div> 
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="chiTietDonHang()">Đơn hàng</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <table class="table">
+                <thead>
+                    <th>OrderID</th>    
+                    <th>ProductID</th>
+                    <th>UnitPrice</th>
+                    <th>Quantity</th>               
+                    <th>Discount</th>            
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of listChiTietDH">
+                        <td>{{ i.orderId }}</td>
+                        <td>{{ i.productId }}</td>
+                        <td>{{ i.unitPrice }}</td>
+                        <td>{{ i.quantity }}</td>
+                        <td>{{ i.discount }}</td>                     
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

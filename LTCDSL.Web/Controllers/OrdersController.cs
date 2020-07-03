@@ -22,7 +22,39 @@ namespace LTCSDL.Web.Controllers
 
         private readonly OrdersSvc _svc;
 
-        [HttpPost("get-ds-don-hang-nv-trong-khoang-thoi-gian-theo-keyword-ado")]
+        [HttpPost("get-ds-don-hang-trong-khoang-thoi-gian")]
+        public IActionResult GetDSDonHangTrongKhoangThoiGian([FromBody] OrdersReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetDSDonHangTrongKhoangThoiGian(req.size, req.page, req.dateF, req.dateT);
+            return Ok(res);
+        }
+
+        [HttpPost("get-chi-tiet-don-hang")]
+        public IActionResult GetChiTietDonHang([FromBody] SimpleReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetChiTietDonHang(req.Id);
+            return Ok(res);
+        }
+
+        [HttpPost("get-ds-don-hang-trong-khoang-thoi-gian-linq")]
+        public IActionResult GetDSDonHangTrongKhoangThoiGian_LinQ([FromBody] OrdersReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetDSDonHangTrongKhoangThoiGian_LinQ(req.size, req.page, req.dateF, req.dateT);
+            return Ok(res);
+        }
+
+        [HttpPost("get-chi-tiet-don-hang-linq")]
+        public IActionResult GetChiTietDonHang_LinQ([FromBody] SimpleReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetChiTietDonHang_LinQ(req.Id);
+            return Ok(res);
+        }
+
+        [HttpPost("get-ds-don-hang-nv-trong-khoang-thoi-gian-theo-keyword")]
         public IActionResult GetDSDonHangNhanVienTrongKhoangThoiGianTheoKeyword([FromBody] OrdersReq req)
         {
             var res = new SingleRsp();
@@ -35,6 +67,14 @@ namespace LTCSDL.Web.Controllers
         {
             var res = new SingleRsp();
             res.Data = _svc.GetDoanhThuTheoQuocGia(req.month, req.year);
+            return Ok(res);
+        }
+
+        [HttpPost("get-doanh-thu-theo-quoc-gia-linq")]
+        public IActionResult GetDoanhThuTheoQuocGia_LinQ([FromBody] DoanhThuReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetDoanhThuTheoQuocGia_LinQ(req.month, req.year);
             return Ok(res);
         }
     }

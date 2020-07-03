@@ -13,5 +13,10 @@ namespace LTCSDL.BLL
         {
             return _rep.GetDSMatHangBanChayNhat(size, page, month, year);
         }
+
+        public object GetDSMatHangBanChayNhat_LinQ(int size, int page, int month, int year)
+        {
+            return _rep.GetDSMatHangBanChayNhat_LinQ(size, page, month, year);
+        }
     }
 }
