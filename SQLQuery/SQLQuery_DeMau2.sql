@@ -1,3 +1,7 @@
+/* De mau 2 */
+use Northwind
+go
+
 /* Cau 1 */
 create proc DanhSachDonHangTrongKhoangThoiGian 
 	@dateF datetime, 

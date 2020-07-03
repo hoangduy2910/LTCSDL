@@ -17,5 +17,15 @@ namespace LTCSDL.BLL
             ship.Phone = req.Phone;
             return _rep.ThemMoiShipper(ship);
         }
+
+        public object CapNhatShipper(ShippersReq req)
+        {
+            return _rep.CapNhatShipper(req);
+        }
+
+        public object DoanhThuShipperTrongKhoangThoiGian(DoanhThuShipperReq req)
+        {
+            return _rep.DoanhThuShipperTrongKhoangThoiGian(req.dateBegin, req.dateEnd);
+        }
     }
 }

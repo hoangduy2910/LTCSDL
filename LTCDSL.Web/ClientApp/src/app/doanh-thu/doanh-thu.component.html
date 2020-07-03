@@ -102,6 +102,46 @@
         </div>
     </div>
     <div class="col-6">
-        <div id="piechart" style="width: 500px; height: 500px;"></div>
+        <div id="piechartQuocGia" style="width: 500px; height: 500px;"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6" style="padding: 20px;">
+        <h2 style="color: DodgerBlue;">Doanh thu shipper trong khoảng thời gian</h2>
+        <div class="row mt-4">
+            <div class="col-2 mt-2">Bắt đầu</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateBegin" />
+            </div> 
+            <div class="col-2 mt-2">Kết thúc</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateEnd" />
+            </div> 
+            <div class="col-2">
+                <button class="btn btn-primary" (click)="doanhThuShipperTrongKhoangThoiGian()">Doanh thu</button>
+            </div> 
+        </div>
+        <div class="row mt-3">
+            <table class="table">
+                <thead>
+                    <th>ShipperID</th>
+                    <th>CompanyName</th>
+                    <th>Phone</th>
+                    <th>Doanh thu</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of listDoanhThuShipperTrongKhoangThoiGian">
+                        <td>{{ i.shipperId }}</td>
+                        <td>{{ i.companyName }}</td>
+                        <td>{{ i.phone }}</td>
+                        <td>{{ i.doanhThu }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-6">
+        <div id="piechartShipper" style="width: 500px; height: 500px;"></div>
     </div>
 </div>

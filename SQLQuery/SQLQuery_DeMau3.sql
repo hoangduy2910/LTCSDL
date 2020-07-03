@@ -1,4 +1,7 @@
 ﻿/* Đề mẫu 3 */
+use Northwind
+go
+
 /* Câu 1a */
 create proc DSDonHangNhanVienTrongKhoangThoiGianTheoKeyword
 	@size int,

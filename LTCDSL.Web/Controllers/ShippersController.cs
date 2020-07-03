@@ -22,11 +22,27 @@ namespace LTCSDL.Web.Controllers
 
         private readonly ShippersSvc _svc;
 
-        [HttpPost("insert-new-shipper")]
+        [HttpPost("them-moi-shipper")]
         public IActionResult ThemMoiShipper([FromBody] ShippersReq req)
         {
             var res = new SingleRsp();
             res.Data = _svc.ThemMoiShipper(req);
+            return Ok(res);
+        }
+
+        [HttpPost("cap-nhat-shipper")]
+        public IActionResult CapNhatShipper([FromBody] ShippersReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.CapNhatShipper(req);
+            return Ok(res);
+        }
+
+        [HttpPost("doanh-thu-shipper-trong-khoang-thoi-gian")]
+        public IActionResult DoanhThuShipperTrongKhoangThoiGian([FromBody] DoanhThuShipperReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.DoanhThuShipperTrongKhoangThoiGian(req);
             return Ok(res);
         }
     }

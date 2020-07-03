@@ -11,6 +11,7 @@ export class DoanhThuComponent  {
   listDoanhThuQuocGia: any = [];
   listDoanhThuNVTrongNgay: any = [];
   listDoanhThuNVTrongKhoangThoiGian: any = [];
+  listDoanhThuShipperTrongKhoangThoiGian: any = [];
   month: any;
   year: any;
   dateBegin: any;
@@ -29,7 +30,7 @@ export class DoanhThuComponent  {
       res = result;
       if (res.success) {
         this.listDoanhThuQuocGia = res.data;
-        this.drawChart(res.data);
+        this.drawChartDoanhThuQuocGia(res.data);
       }
       else {
         alert(res.message);
@@ -37,7 +38,7 @@ export class DoanhThuComponent  {
     }, error => console.error(error));
   }
 
-  drawChart(chartData) {
+  drawChartDoanhThuQuocGia(chartData) {
     var arrayData = [["Quốc gia", "Doanh thu"]];
     chartData.forEach(element => {
       var item = [];
@@ -51,7 +52,7 @@ export class DoanhThuComponent  {
       title: 'Doanh thu theo quốc gia'
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    var chart = new google.visualization.PieChart(document.getElementById('piechartQuocGia'));
 
     chart.draw(data, options);
   }
@@ -90,5 +91,43 @@ export class DoanhThuComponent  {
         alert(res.message);
       }
     }, error => console.error(error));
+  }
+
+  
+  doanhThuShipperTrongKhoangThoiGian() {
+    var res: any;
+    var x = {
+      "dateBegin": this.dateBegin,
+      "dateEnd": this.dateEnd
+    };
+    this.http.post("https://localhost:44377" + "/api/Shippers/doanh-thu-shipper-trong-khoang-thoi-gian", x).subscribe(result => {
+      res = result;
+      if (res.success) {
+        this.listDoanhThuShipperTrongKhoangThoiGian = res.data;
+        this.drawChartDoanhThuShipper(res.data);
+      }
+      else {
+        alert(res.message);
+      }
+    }, error => console.error(error));
+  }
+
+  drawChartDoanhThuShipper(chartData) {
+    var arrayData = [["Shipper", "Doanh thu"]];
+    chartData.forEach(element => {
+      var item = [];
+      item.push(element.companyName);
+      item.push(element.doanhThu);
+      arrayData.push(item);
+    });
+    var data = google.visualization.arrayToDataTable(arrayData);
+
+    var options = {
+      title: 'Doanh thu theo shipper'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechartShipper'));
+
+    chart.draw(data, options);
   }
 }
