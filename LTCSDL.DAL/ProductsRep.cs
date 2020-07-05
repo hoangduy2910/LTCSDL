@@ -11,6 +11,7 @@ namespace LTCSDL.DAL
     using LTCSDL.Common.DAL;
     using LTCSDL.Common.BLL;
     using Microsoft.EntityFrameworkCore.Internal;
+    using LTCSDL.Common.Req;
 
     public class ProductsRep : GenericRep<NorthwindContext, Products>
     {
@@ -93,6 +94,99 @@ namespace LTCSDL.DAL
                 page = page,
                 size = size
             };
+        }
+
+        public object GetDanhSachProductKhongCoDonHangTrongNgay(int size, int page, DateTime date)
+        {
+            List<object> res = new List<object>();
+            var cnn = (SqlConnection)Context.Database.GetDbConnection();
+            if (cnn.State == ConnectionState.Closed)
+                cnn.Open();
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter();
+                DataSet ds = new DataSet();
+                var cmd = cnn.CreateCommand();
+                cmd.CommandText = "DanhSachProductKhongCoDonHangTrongNgay";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@size", size);
+                cmd.Parameters.AddWithValue("@page", page);
+                cmd.Parameters.AddWithValue("@date", date);
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        var x = new
+                        {
+                            STT = row["STT"],               
+                            ProductID = row["ProductID"],
+                            ProductName = row["ProductName"],
+                            SupplierID = row["SupplierID"],
+                            CategoryID = row["CategoryID"],
+                            QuantityPerUnit = row["QuantityPerUnit"],
+                            UnitPrice = row["UnitPrice"],
+                            UnitsInStock = row["UnitsInStock"],
+                            UnitsOnOrder = row["UnitsOnOrder"],
+                            ReorderLevel = row["ReorderLevel"],
+                            Discontinued = row["Discontinued"]
+                        };
+                        res.Add(x);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                res = null;
+            }
+            return res;
+        }
+
+        public object ThemMoiProduct(InsertProductReq pro)
+        {
+            List<object> res = new List<object>();
+            var cnn = (SqlConnection)Context.Database.GetDbConnection();
+            if (cnn.State == ConnectionState.Closed)
+                cnn.Open();
+            try
+            {
+                string sql = "insert into [dbo].[Products] ([ProductName] ,[SupplierID] ,[CategoryID] ,[QuantityPerUnit] ,[UnitPrice] ,[UnitsInStock] ,[UnitsOnOrder] ,[ReorderLevel] ,[Discontinued])";
+                sql = sql + "values ('" + pro.ProductName + "', '" + pro.SupplierId + "', '" + pro.CategoryId + "', '" + pro.QuantityPerUnit + "', '" + pro.UnitPrice + "', '" + pro.UnitsInStock + "', '" + pro.UnitsOnOrder + "', '" + pro.ReorderLevel + "', '" + pro.Discontinued + "')";
+                sql = sql + "select * from [dbo].[Products] where ProductID = @@identity";
+                SqlDataAdapter da = new SqlDataAdapter();
+                DataSet ds = new DataSet();
+                var cmd = cnn.CreateCommand();
+                cmd.CommandText = sql;
+                cmd.CommandType = CommandType.Text;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        var x = new
+                        {
+                            ProductID = row["ProductID"],
+                            ProductName = row["ProductName"],
+                            SupplierID = row["SupplierID"],
+                            CategoryID = row["CategoryID"],
+                            QuantityPerUnit = row["QuantityPerUnit"],
+                            UnitPrice = row["UnitPrice"],
+                            UnitsInStock = row["UnitsInStock"],
+                            UnitsOnOrder = row["UnitsOnOrder"],
+                            ReorderLevel = row["ReorderLevel"],
+                            Discontinued = row["Discontinued"]
+                        };
+                        res.Add(x);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                res = null;
+            }
+            return res;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace LTCSDL.Common.Req
         public int page { get; set; }
         public int month { get; set; }
         public int year { get; set; }
+        public DateTime date { get; set; }
     }
 }

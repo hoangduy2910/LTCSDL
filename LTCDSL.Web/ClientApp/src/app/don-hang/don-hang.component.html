@@ -100,3 +100,39 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-6" style="padding: 20px;">
+        <h2 style="color: DodgerBlue;">Số lượng hàng cần giao trong khoảng thời gian</h2>
+        <div class="row mt-4">
+            <div class="col-2 mt-2">Bắt đầu</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateFrom" />
+            </div> 
+            <div class="col-2 mt-2">Kết thúc</div> 
+            <div class="col-3">
+                <input class="form-control" type="date" [(ngModel)]="dateTo" />
+            </div> 
+            <div class="col-2">
+                <button class="btn btn-primary" (click)="soLuongHangCanGiaoTrongKhoangThoiGian()">Số lượng</button>
+            </div> 
+        </div>
+        <div class="row mt-3">
+            <table class="table">
+                <thead>
+                    <th>Ngày</th>
+                    <th>Số lượng cần giao</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of listSoLuongHangCanGiao">
+                        <td>{{ i.ngay }}</td>
+                        <td>{{ i.soLuongHangCanGiao }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-6">
+        <div id="barchart_values" style="width: 900px; height: 300px;"></div>
+    </div>
+</div>

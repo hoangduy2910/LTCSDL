@@ -42,5 +42,20 @@ namespace LTCSDL.BLL
         {
             return _rep.GetDoanhThuTheoQuocGia_LinQ(month, year);
         }
+
+        public object TimKiemOrderTheoCompanyNameVaEmployeeName(int size, int page, string companyName, string employeeName)
+        {
+            return _rep.TimKiemOrderTheoCompanyNameVaEmployeeName(size, page, companyName, employeeName);
+        }
+
+        public object DanhSachDonHangTrongNgay_LinQ(int size, int page, DateTime date)
+        {
+            return _rep.DanhSachDonHangTrongNgay_LinQ(size, page, date);
+        }
+
+        public object SoLuongHangCanGiaoTrongKhoangThoiGian_LinQ(DateTime dateFrom, DateTime dateTo)
+        {
+            return _rep.SoLuongHangCanGiaoTrongKhoangThoiGian_LinQ(dateFrom, dateTo);
+        }
     }
 }

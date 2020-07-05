@@ -45,5 +45,21 @@ namespace LTCSDL.Web.Controllers
             res.Data = _svc.GetDSMatHangBanChayNhat_LinQ(req.size, req.page, req.month, req.year);
             return Ok(res);
         }
+
+        [HttpPost("get-ds-product-khong-co-don-hang-trong-ngay")]
+        public IActionResult GetDanhSachProductKhongCoDonHangTrongNgay([FromBody] ProductsReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.GetDanhSachProductKhongCoDonHangTrongNgay(req.size, req.page, req.date);
+            return Ok(res);
+        }
+
+        [HttpPost("them-moi-product")]
+        public IActionResult ThemMoiProduct([FromBody] InsertProductReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.ThemMoiProduct(req);
+            return Ok(res);
+        }
     }
 }

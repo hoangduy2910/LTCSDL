@@ -77,5 +77,29 @@ namespace LTCSDL.Web.Controllers
             res.Data = _svc.GetDoanhThuTheoQuocGia_LinQ(req.month, req.year);
             return Ok(res);
         }
+
+        [HttpPost("serach-order-theo-company-and-employee")]
+        public IActionResult TimKiemOrderTheoCompanyNameVaEmployeeName([FromBody] OrdersReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.TimKiemOrderTheoCompanyNameVaEmployeeName(req.size, req.page, req.companyName, req.employeeName);
+            return Ok(res);
+        }
+
+        [HttpPost("danh-sach-don-hang-trong-ngay")]
+        public IActionResult DanhSachDonHangTrongNgay_LinQ([FromBody] OrdersReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.DanhSachDonHangTrongNgay_LinQ(req.size, req.page, req.dateF);
+            return Ok(res);
+        }
+
+        [HttpPost("so-luong-hang-can-giao-trong-khoang-thoi-gian")]
+        public IActionResult SoLuongHangCanGiaoTrongKhoangThoiGian_LinQ([FromBody] OrdersReq req)
+        {
+            var res = new SingleRsp();
+            res.Data = _svc.SoLuongHangCanGiaoTrongKhoangThoiGian_LinQ(req.dateF, req.dateT);
+            return Ok(res);
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace LTCSDL.Common.Req
         public string keyword { get; set; }
         public DateTime dateF { get; set; }
         public DateTime dateT { get; set; }
+        public string companyName { get; set; }
+        public string employeeName { get; set; }
     }
 }
